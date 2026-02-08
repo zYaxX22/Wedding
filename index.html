@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Der Beginn unseres gemeinsamen Lebens</title>
-  <link rel="stylesheet" href="wedding.css?v=7" />
+  <link rel="stylesheet" href="wedding.css?v=8" />
 </head>
 
 <body>
   <div class="bg"></div>
 
-  <!-- Sticky Mini-Countdown -->
+  <!-- Sticky Mini-Countdown (erscheint nur, wenn großer Countdown nicht sichtbar ist) -->
   <a class="mini-countdown" id="miniCountdown" href="#countdown" aria-label="Zum Countdown springen">
     <span class="mini-label" id="miniLabel">Tage bis zur Hochzeit</span>
     <span class="mini-value" id="miniValue">--</span>
@@ -31,13 +31,11 @@
           <b>Gutshof Grasdorf</b> in Taucha.
         </p>
 
-        <!-- COUNTDOWN -->
+        <!-- COUNTDOWN (groß & zentral) -->
         <div class="countdown-card lift in" id="countdown">
-          <div class="countdown-title" id="countdownTitle">
-            Tage bis zu unserer Hochzeit
-          </div>
+          <div class="countdown-title" id="countdownTitle">Tage bis zu unserer Hochzeit</div>
 
-          <div class="countdown-grid">
+          <div class="countdown-grid" aria-live="polite">
             <div class="cd">
               <div class="cd__num" id="d">--</div>
               <div class="cd__label" id="dLabel">Tage</div>
@@ -65,81 +63,164 @@
         </div>
       </div>
 
-      <!-- HERO IMAGE -->
+      <!-- HERO IMAGE (größer, 16:9) -->
       <figure class="hero__photo fade-in-delay">
-        <img src="assets/us.jpg?v=7" alt="Wir zwei">
+        <img src="assets/us.jpg?v=8" alt="Wir zwei">
         <figcaption>Ein Anfang. Und ganz viel „für immer“.</figcaption>
       </figure>
     </header>
 
     <!-- ORTE -->
-    <section class="section lift">
+    <section class="section lift" id="orte">
       <h2>Orte</h2>
       <p class="muted">
         Hier findet ihr alle wichtigen Orte rund um unseren Hochzeitstag.
+        Weitere Details ergänzen wir Schritt für Schritt.
       </p>
+
+      <div class="cards cards--two">
+        <div class="card lift">
+          <h3>Standesamt</h3>
+          <p><b>Weißes Haus</b><br>Markkleeberg</p>
+          <ul class="list">
+            <li>Trauung im kleinen, familiären Rahmen</li>
+            <li>Uhrzeit & Treffpunkt folgen</li>
+          </ul>
+          <a class="link"
+             href="https://www.google.com/maps/search/Weißes+Haus+Markkleeberg"
+             target="_blank" rel="noopener">
+            In Google Maps öffnen
+          </a>
+        </div>
+
+        <div class="card lift">
+          <h3>Feier</h3>
+          <p><b>Gutshof Grasdorf</b><br>Taucha</p>
+          <ul class="list">
+            <li>Empfang, Dinner & Feier</li>
+            <li>Infos zu Anfahrt & Parken folgen</li>
+          </ul>
+          <a class="link"
+             href="https://www.google.com/maps/search/Gutshof+Grasdorf+Taucha"
+             target="_blank" rel="noopener">
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPFEHLUNGEN -->
+    <section class="section lift" id="empfehlungen">
+      <h2>Empfehlungen</h2>
+      <p class="muted">
+        Für alle, die eine Übernachtung planen oder etwas weiter anreisen.
+      </p>
+
+      <div class="cards">
+        <div class="card lift">
+          <h3>Hotels</h3>
+          <ul class="list">
+            <li>Markkleeberg & Leipzig-Süd</li>
+            <li>Taucha & Umgebung</li>
+          </ul>
+          <p class="muted">Konkrete Empfehlungen folgen.</p>
+        </div>
+
+        <div class="card lift">
+          <h3>Anreise</h3>
+          <ul class="list">
+            <li>Leipzig ist gut per Bahn & Auto erreichbar</li>
+            <li>Infos zu Shuttle / Fahrgemeinschaften folgen</li>
+          </ul>
+        </div>
+
+        <div class="card lift">
+          <h3>Hinweis</h3>
+          <p class="muted">
+            Diese Seite wird regelmäßig ergänzt –
+            ein späterer Blick lohnt sich.
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="footer lift">
       <p class="muted">
         Diese Seite ist nur per Link oder QR-Code erreichbar.
+        Bitte nicht öffentlich teilen.
+      </p>
+      <p class="muted" style="margin-top:10px;">
+        <a class="link" href="#top">Nach oben</a>
       </p>
     </footer>
   </main>
 
   <!-- SETTINGS -->
   <script>
+    // Hochzeitstag (lokale Zeit)
     const WEDDING_DATETIME_LOCAL = "2026-08-21T11:00:00";
   </script>
 
   <script>
     const target = new Date(WEDDING_DATETIME_LOCAL);
 
-    const dEl = document.getElementById("d");
-    const hEl = document.getElementById("h");
-    const mEl = document.getElementById("m");
-    const sEl = document.getElementById("s");
-    const dLabel = document.getElementById("dLabel");
-
-    const hBox = document.getElementById("hBox");
-    const mBox = document.getElementById("mBox");
-    const sBox = document.getElementById("sBox");
-
     const titleEl = document.getElementById("countdownTitle");
     const footnoteEl = document.getElementById("countdownFootnote");
     const weddingDateTextEl = document.getElementById("weddingDateText");
 
+    const dEl = document.getElementById("d");
+    const hEl = document.getElementById("h");
+    const mEl = document.getElementById("m");
+    const sEl = document.getElementById("s");
+
+    const hBox = document.getElementById("hBox");
+    const mBox = document.getElementById("mBox");
+    const sBox = document.getElementById("sBox");
+    const dLabel = document.getElementById("dLabel");
+
     const mini = document.getElementById("miniCountdown");
     const miniLabel = document.getElementById("miniLabel");
     const miniValue = document.getElementById("miniValue");
+
+    function pad(n){ return String(n).padStart(2,"0"); }
 
     weddingDateTextEl.textContent = target.toLocaleString("de-DE", {
       weekday:"long", year:"numeric", month:"long", day:"2-digit",
       hour:"2-digit", minute:"2-digit"
     });
 
-    function pad(n){ return String(n).padStart(2,"0"); }
-
     function tick(){
       const now = new Date();
       const diff = target - now;
 
       if(diff > 0){
-        const t = Math.floor(diff/1000);
-        const days = Math.floor(t/86400);
-        dEl.textContent = days;
-        hEl.textContent = pad(Math.floor(t%86400/3600));
-        mEl.textContent = pad(Math.floor(t%3600/60));
-        sEl.textContent = pad(t%60);
+        titleEl.textContent = "Tage bis zu unserer Hochzeit";
+        footnoteEl.style.display = "block";
+        dLabel.textContent = "Tage";
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        dEl.textContent = String(days);
+        hEl.textContent = pad(hours);
+        mEl.textContent = pad(minutes);
+        sEl.textContent = pad(seconds);
+
+        hBox.style.display = mBox.style.display = sBox.style.display = "";
 
         miniLabel.textContent = "Tage bis zur Hochzeit";
         miniValue.textContent = `T-${days}`;
       } else {
-        const marriedDays = Math.floor((now-target)/86400000);
         titleEl.textContent = "Seit diesem Tag sind wir verheiratet";
+        footnoteEl.style.display = "none";
         dLabel.textContent = "Tage verheiratet";
-        dEl.textContent = marriedDays;
+
+        const marriedDays = Math.floor((now - target) / 86400000);
+        dEl.textContent = String(marriedDays);
 
         hBox.style.display = mBox.style.display = sBox.style.display = "none";
 
@@ -149,12 +230,23 @@
     }
 
     tick();
-    setInterval(tick,1000);
+    setInterval(tick, 1000);
 
+    // Reveal animations
+    const liftObs = new IntersectionObserver(
+      entries => entries.forEach(e => e.isIntersecting && e.target.classList.add("in")),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll(".lift").forEach(el => liftObs.observe(el));
+
+    // Sticky mini only when big countdown is out of view
     const bigCountdown = document.getElementById("countdown");
     const miniObs = new IntersectionObserver(
-      e => mini.classList.toggle("show", !e[0].isIntersecting),
-      {threshold:0.15}
+      entries => {
+        const isVisible = entries[0].isIntersecting;
+        mini.classList.toggle("show", !isVisible);
+      },
+      { threshold: 0.15 }
     );
     miniObs.observe(bigCountdown);
   </script>
