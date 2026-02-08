@@ -10,6 +10,8 @@
 }
 
 *{box-sizing:border-box}
+html{ scroll-behavior:smooth; }
+
 body{
   margin:0;
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,"Comic Sans MS";
@@ -40,20 +42,28 @@ body{
   .hero{grid-template-columns:1fr}
 }
 
-.kicker{color:var(--muted);margin-bottom:8px}
-h1{font-size:clamp(34px,4vw,56px);margin:0}
-.sub{color:var(--muted);line-height:1.6}
+.kicker{color:var(--muted);margin:0 0 10px;letter-spacing:.02em}
+h1{font-size:clamp(34px,4vw,56px);margin:0;line-height:1.05}
+.sub{color:var(--muted);line-height:1.6;margin:14px 0 0}
 
 .hero__photo{
   background:var(--card);
   border-radius:var(--radius);
   padding:14px;
   box-shadow:var(--shadow);
+  border:1px solid var(--stroke);
 }
 
 .hero__photo img{
   width:100%;
   border-radius:16px;
+  display:block;
+}
+
+.hero__photo figcaption{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:14px;
 }
 
 .countdown-card{
@@ -62,6 +72,13 @@ h1{font-size:clamp(34px,4vw,56px);margin:0}
   border-radius:var(--radius);
   padding:16px;
   box-shadow:var(--shadow);
+  border:1px solid var(--stroke);
+}
+
+.countdown-title{
+  font-weight:800;
+  letter-spacing:.01em;
+  margin-bottom:10px;
 }
 
 .countdown-grid{
@@ -76,13 +93,20 @@ h1{font-size:clamp(34px,4vw,56px);margin:0}
 
 .cd{
   background:rgba(255,255,255,.65);
+  border:1px solid rgba(0,0,0,.05);
   border-radius:16px;
   text-align:center;
   padding:12px;
 }
 
 .cd__num{font-size:28px;font-weight:900}
-.cd__label{font-size:12px;color:var(--muted);text-transform:uppercase}
+.cd__label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+
+.countdown-footnote{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:13px;
+}
 
 .section{
   margin-top:26px;
@@ -90,7 +114,10 @@ h1{font-size:clamp(34px,4vw,56px);margin:0}
   border-radius:var(--radius);
   padding:18px;
   box-shadow:var(--shadow);
+  border:1px solid var(--stroke);
 }
+
+.section h2{margin:0 0 10px}
 
 .cards{
   display:grid;
@@ -105,25 +132,115 @@ h1{font-size:clamp(34px,4vw,56px);margin:0}
   .cards,.cards--two{grid-template-columns:1fr}
 }
 
-.card{background:rgba(255,255,255,.65);padding:14px;border-radius:18px}
-.list{padding-left:18px;color:var(--muted)}
-.link{text-decoration:underline;color:inherit}
+.card{
+  background:rgba(255,255,255,.65);
+  padding:14px;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,.05);
+}
 
-.footer{text-align:center;margin-top:18px;color:var(--muted)}
+.list{
+  padding-left:18px;
+  color:var(--muted);
+  margin:8px 0 0;
+  line-height:1.7;
+}
 
+.link{
+  text-decoration:underline;
+  color:inherit;
+  text-underline-offset:3px;
+}
+
+.footer{
+  text-align:center;
+  margin-top:18px;
+  color:var(--muted);
+}
+
+.muted{color:var(--muted);line-height:1.7;margin:0}
+
+/* Fade-ins */
 .fade-in{opacity:0;animation:fadeIn 1s forwards}
 .fade-in-delay{opacity:0;animation:fadeIn 1.3s .15s forwards}
-
 @keyframes fadeIn{
   from{opacity:0;transform:translateY(10px)}
   to{opacity:1;transform:none}
 }
 
-.lift{opacity:0;transform:translateY(10px);transition:.8s}
+/* Lift on scroll */
+.lift{opacity:0;transform:translateY(10px);transition:opacity .8s ease, transform .8s ease}
 .lift.in{opacity:1;transform:none}
 
+/* Hover micro interaction */
+.card:hover,.countdown-card:hover,.hero__photo:hover,.section:hover{
+  transform:translateY(-2px);
+  transition:transform .25s ease;
+}
+
+/* Sticky Mini-Countdown */
+.mini-countdown{
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 50;
+
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+
+  padding: 10px 12px;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.82);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
+  backdrop-filter: blur(10px);
+
+  color: var(--ink);
+  text-decoration: none;
+
+  transform: translateY(-6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+.mini-countdown.show{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mini-label{
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .02em;
+  max-width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-value{
+  font-weight: 900;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.06);
+}
+
+/* Mobile tweaks */
 @media(max-width:480px){
   h1{font-size:32px}
   .cd__num{font-size:24px}
   .wrap{padding:20px 14px 36px}
+
+  /* Sticky unten rechts, damit es die Headline nicht überdeckt */
+  .mini-countdown{
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+  }
+  .mini-label{max-width: 130px}
 }
