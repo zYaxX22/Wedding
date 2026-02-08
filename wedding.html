@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unsere Hochzeit</title>
+  <link rel="stylesheet" href="wedding.css" />
+</head>
+
+<body>
+  <div class="bg"></div>
+
+  <main class="wrap">
+    <!-- HERO / START -->
+    <header class="hero fade-in">
+      <div class="hero__text">
+        <p class="kicker">Ein kleiner Ort nur für uns (und später für euch)</p>
+
+        <h1>Der Beginn unseres gemeinsamen Lebens</h1>
+
+        <p class="sub">
+          Am <b>21. August 2026</b> sagen wir Ja –
+          zuerst standesamtlich im <b>Weißen Haus</b> in <b>Markkleeberg</b>
+          und anschließend feiern wir diesen Tag gemeinsam im <b>Gutshof Grasdorf</b> (Taucha).
+        </p>
+
+        <!-- COUNTDOWN (zentral & prominent) -->
+        <div class="countdown-card lift in" id="countdownCard">
+          <div class="countdown-title" id="countdownTitle">Countdown</div>
+
+          <div class="countdown-grid" aria-live="polite">
+            <div class="cd">
+              <div class="cd__num" id="d">--</div>
+              <div class="cd__label" id="dLabel">Tage</div>
+            </div>
+
+            <div class="cd" id="hBox">
+              <div class="cd__num" id="h">--</div>
+              <div class="cd__label">Stunden</div>
+            </div>
+
+            <div class="cd" id="mBox">
+              <div class="cd__num" id="m">--</div>
+              <div class="cd__label">Minuten</div>
+            </div>
+
+            <div class="cd" id="sBox">
+              <div class="cd__num" id="s">--</div>
+              <div class="cd__label">Sekunden</div>
+            </div>
+          </div>
+
+          <div class="countdown-footnote" id="countdownFootnote">
+            Hochzeitstag: <span id="weddingDateText">—</span>
+          </div>
+        </div>
+      </div>
+
+      <figure class="hero__photo fade-in-delay">
+        <img src="assets/us.jpg" alt="Wir zwei" />
+        <figcaption>Ein Anfang. Und ganz viel „für immer“.</figcaption>
+      </figure>
+    </header>
+
+    <!-- ORTE -->
+    <section class="section lift" id="orte">
+      <h2>Orte</h2>
+      <p class="muted">
+        Damit wir (und später unsere Gäste) alles auf einen Blick haben.
+        Details wie Uhrzeiten, Anfahrt & Parken ergänzen wir Schritt für Schritt.
+      </p>
+
+      <div class="cards cards--two">
+        <div class="card lift">
+          <h3>Standesamt</h3>
+          <p><b>Weißes Haus</b>, Markkleeberg</p>
+          <ul class="list">
+            <li>Trauung im kleinen Rahmen</li>
+            <li>Mehr Details (Uhrzeit / Treffpunkt) folgen</li>
+          </ul>
+          <!-- Optional später: Link zu Google Maps -->
+          <!-- <a class="link" href="https://maps.google.com/?q=Weißes+Haus+Markkleeberg" target="_blank" rel="noopener">In Maps öffnen</a> -->
+        </div>
+
+        <div class="card lift">
+          <h3>Feier</h3>
+          <p><b>Gutshof Grasdorf</b>, Taucha</p>
+          <ul class="list">
+            <li>Empfang, Dinner & Feier</li>
+            <li>Infos zu Anfahrt/Unterkunft kommen bald</li>
+          </ul>
+          <!-- Optional später: Link zu Google Maps -->
+          <!-- <a class="link" href="https://maps.google.com/?q=Gutshof+Grasdorf+Taucha" target="_blank" rel="noopener">In Maps öffnen</a> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- START / AUSBLICK -->
+    <section class="section lift" id="start">
+      <h2>Start</h2>
+      <p class="muted">
+        Diese Seite wächst mit der Zeit: ein paar Erinnerungen für uns,
+        später auch alle wichtigen Infos für Gäste (Ablauf, Anreise, FAQ).
+      </p>
+
+      <div class="cards">
+        <div class="card lift">
+          <h3>Für uns</h3>
+          <p>Erinnerungen, kleine Texte, Fotos, Lieblingslieder — privat & liebevoll.</p>
+        </div>
+        <div class="card lift">
+          <h3>Für Gäste</h3>
+          <p>Ort, Uhrzeit, Dresscode, Ablauf, Geschenkideen, FAQ — sobald wir bereit sind.</p>
+        </div>
+        <div class="card lift">
+          <h3>Countdown</h3>
+          <p>Bis zum Tag X. Und danach zählt er weiter: wie lange wir verheiratet sind.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer lift">
+      <p class="muted">
+        Hinweis: Diese Seite ist „unlisted“ (nur per Link/QR). Bitte nicht öffentlich teilen.
+      </p>
+    </footer>
+  </main>
+
+  <!-- SETTINGS: Hochzeitstag setzen (lokale Zeit) -->
+  <script>
+    // ✅ Datum fix: 21.08.2026
+    // Uhrzeit kannst du später anpassen, wenn ihr sie fest habt.
+    // Format: "YYYY-MM-DDTHH:MM:SS"
+    const WEDDING_DATETIME_LOCAL = "2026-08-21T12:11:00";
+  </script>
+
+  <script>
+    // ---------- Countdown / Day Counter ----------
+    const target = new Date(WEDDING_DATETIME_LOCAL);
+
+    const titleEl = document.getElementById("countdownTitle");
+    const footnoteEl = document.getElementById("countdownFootnote");
+    const weddingDateTextEl = document.getElementById("weddingDateText");
+
+    const dEl = document.getElementById("d");
+    const hEl = document.getElementById("h");
+    const mEl = document.getElementById("m");
+    const sEl = document.getElementById("s");
+
+    const hBox = document.getElementById("hBox");
+    const mBox = document.getElementById("mBox");
+    const sBox = document.getElementById("sBox");
+    const dLabel = document.getElementById("dLabel");
+
+    function pad(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function formatLocalDate(dt) {
+      return dt.toLocaleString("de-DE", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+
+    weddingDateTextEl.textContent = formatLocalDate(target);
+
+    function tick() {
+      const now = new Date();
+      const diff = target.getTime() - now.getTime();
+
+      if (diff > 0) {
+        // Vor der Hochzeit: Countdown
+        titleEl.textContent = "Countdown bis zur Hochzeit";
+        footnoteEl.style.display = "block";
+        dLabel.textContent = "Tage";
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        dEl.textContent = String(days);
+        hEl.textContent = pad(hours);
+        mEl.textContent = pad(minutes);
+        sEl.textContent = pad(seconds);
+
+        hBox.style.display = "";
+        mBox.style.display = "";
+        sBox.style.display = "";
+      } else {
+        // Nach der Hochzeit: Tage verheiratet
+        titleEl.textContent = "Wir sind verheiratet 🎉";
+        footnoteEl.style.display = "none";
+        dLabel.textContent = "Tage verheiratet";
+
+        const marriedSeconds = Math.floor((now.getTime() - target.getTime()) / 1000);
+        const marriedDays = Math.floor(marriedSeconds / 86400);
+
+        dEl.textContent = String(marriedDays);
+
+        // ruhiger & elegant: H/M/S ausblenden
+        hBox.style.display = "none";
+        mBox.style.display = "none";
+        sBox.style.display = "none";
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // Smooth reveal on scroll
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add("in")),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll(".lift").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
